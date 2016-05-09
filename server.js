@@ -1,5 +1,6 @@
 //for HEROKU oe local env
 var PORT = process.env.PORT || 3000;
+var moment = require('moment');
 var express = require('express');
 var app = express();
 // http server for express app
@@ -13,11 +14,13 @@ io.on('connection',function(socket){
 		console.log('message received: '+message.text);
 		//to send to every person include sender io.emit
 		//to send message to every person exclude sender - socket.broadcast.emit
+		message.timestamp = moment().valueOf();
 		io.emit('message', message);
 	});
 
 	socket.emit('message', {
-		text: 'Welcome to the chat app'
+		text: 'Welcome to the chat app',
+		timestamp : moment().valueOf()
 	});
 });
 
