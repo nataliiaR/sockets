@@ -14,5 +14,8 @@
   },
   "bugs": {
     "url": "https://github.com/nataliiaR/sockets/issues"
+  },
+  "dependencies": {
+    "express": "~4.13.3"
   }
 }
