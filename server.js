@@ -9,6 +9,13 @@ var io = require('socket.io')(http);
 //for listening for events
 io.on('connection',function(socket){
 	console.log('user connected via socket.io');
+	socket.on('message', function(message){
+		console.log('message received: '+message.text);
+		//to send to every person include sender io.emit
+		//to send message to every person exclude sender
+		socket.broadcast.emit('message', message);
+	});
+
 	socket.emit('message', {
 		text: 'Welcome to the chat app'
 	});
