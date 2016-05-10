@@ -19,6 +19,7 @@ io.on('connection',function(socket){
 	});
 
 	socket.emit('message', {
+		name: 'System',
 		text: 'Welcome to the Talkaline chat application! Lets talk',
 		timestamp : moment().valueOf()
 	});
