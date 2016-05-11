@@ -12,7 +12,20 @@ var clientInfo= {};
 
 //for listening for events
 io.on('connection',function(socket){
+	var userData = clientInfo[socket.id];
 	console.log('user connected via socket.io');
+
+	socket.on('disconnect', function(){
+		if (typeof userData !== 'undefined'){
+			socket.leave(userData.room);
+			io.to(userData.room).emit('message',{
+				name: 'System',
+				text: userData.name + ' has left',
+				timestamp: moment().valueOf()
+			});
+			delete userData;
+		}
+	});
 
 	socket.on('joinRoom', function(req){
 		clientInfo[socket.id]=req;
